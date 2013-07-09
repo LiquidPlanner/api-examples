@@ -5,6 +5,7 @@
 
 # You need the Requests library, found at:
 # http://docs.python-requests.org/en/latest/index.html
+# note that Requests version 1.0 or later is required
 #
 import requests
 

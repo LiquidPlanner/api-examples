@@ -40,6 +40,10 @@ The Java example uses the GSON library:
 
 Uses libraries included with a standard PHP install.
 
+On Ubuntu, you may need to install php5-curl
+
+  apt-get install php5-curl
+
 == Python
 
 The Python example uses the requests library:

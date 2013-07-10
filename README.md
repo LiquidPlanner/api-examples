@@ -1,68 +1,79 @@
-These files show how to access the LiquidPlanner API from:
+##These files show how to access the LiquidPlanner API from:
 
-  C#
-  Java
-  PHP
-  Python
-  Ruby
-  VB.net
+* C#
+* Java
+* PHP
+* Python
+* Ruby
+* VB.net
 
-If you don't already have a LiquidPlanner account, you can sign up at:
+### If you don't already have a LiquidPlanner account, you can sign up at:
 
-  http://www.liquidplanner.com/
+####  http://www.liquidplanner.com/
 
 See the docs at:
 
-  http://www.liquidplanner.com/api
+    http://www.liquidplanner.com/api
 
 for more info on the API.
 
-== C#
+- - -
+
+### C# 
 
 If you don't have Visual Studio, you can get Visual C# Express free from Microsoft:
 
-  http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-csharp-express
+     http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-csharp-express
 
 You'll need the JSON.net library from CodePlex:
 
-  http://json.codeplex.com/
+    http://json.codeplex.com/
 
 Unzip the JSON.net library, open the LP project, and add a reference to the
 JSON.net DLL in the unzipped files. 
 
-== Java
+- - -
+
+### Java
 
 The Java example uses the GSON library:
 
-  http://code.google.com/p/google-gson/
+    http://code.google.com/p/google-gson/
 
-== PHP
+- - -
+
+### PHP
 
 Uses libraries included with a standard PHP install.
 
 On Ubuntu, you may need to install php5-curl
 
-  apt-get install php5-curl
+    apt-get install php5-curl
 
-== Python
+- - -
+
+### Python
 
 The Python example uses the requests library:
 
-  http://docs.python-requests.org/en/latest/user/install/#install
+    http://docs.python-requests.org/en/latest/user/install/#install
 
-== Ruby
+- - -
+
+### Ruby
 
 The Ruby example uses httparty:
 
-  https://github.com/jnunemaker/httparty/
+    https://github.com/jnunemaker/httparty/
 
-== VB.net
+- - -
+
+### VB.net
 
 As with C#, you can use VB.net Express:
 
-  http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-basic-express
+    http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-basic-express
 
 and you'll need the JSON.net library from CodePlex:
 
-  http://json.codeplex.com/
-
+    http://json.codeplex.com/

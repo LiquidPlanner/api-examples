@@ -13,7 +13,7 @@
 
 See the docs at:
 
-    http://www.liquidplanner.com/api
+####  http://www.liquidplanner.com/api
 
 for more info on the API.
 
@@ -23,11 +23,11 @@ for more info on the API.
 
 If you don't have Visual Studio, you can get Visual C# Express free from Microsoft:
 
-     http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-csharp-express
+####  http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-csharp-express
 
 You'll need the JSON.net library from CodePlex:
 
-    http://json.codeplex.com/
+####  http://json.codeplex.com/
 
 Unzip the JSON.net library, open the LP project, and add a reference to the
 JSON.net DLL in the unzipped files. 
@@ -38,7 +38,7 @@ JSON.net DLL in the unzipped files.
 
 The Java example uses the GSON library:
 
-    http://code.google.com/p/google-gson/
+####  http://code.google.com/p/google-gson/
 
 - - -
 
@@ -56,7 +56,7 @@ On Ubuntu, you may need to install php5-curl
 
 The Python example uses the requests library:
 
-    http://docs.python-requests.org/en/latest/user/install/#install
+####  http://docs.python-requests.org/en/latest/user/install/#install
 
 - - -
 
@@ -64,7 +64,7 @@ The Python example uses the requests library:
 
 The Ruby example uses httparty:
 
-    https://github.com/jnunemaker/httparty/
+####  https://github.com/jnunemaker/httparty/
 
 - - -
 
@@ -72,8 +72,8 @@ The Ruby example uses httparty:
 
 As with C#, you can use VB.net Express:
 
-    http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-basic-express
+####  http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-basic-express
 
 and you'll need the JSON.net library from CodePlex:
 
-    http://json.codeplex.com/
+####  http://json.codeplex.com/

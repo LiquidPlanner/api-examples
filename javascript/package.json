@@ -1,0 +1,10 @@
+{
+  "name": "liquid_planner",
+  "description": "LiquidPlanner Javascript API Example",
+  "author": "Liquidplanner",
+  "dependencies": {
+    "request": "~2.22.0",
+    "read": "~1.0.5",
+    "flow": "~0.2.3"
+  }
+}

@@ -2,6 +2,7 @@
 
 * C#
 * Java
+* Perl
 * PHP
 * Python
 * Ruby
@@ -39,6 +40,17 @@ JSON.net DLL in the unzipped files.
 The Java example uses the GSON library:
 
 ####  http://code.google.com/p/google-gson/
+
+- - -
+
+### Perl
+
+The Perl example uses the following libraries from CPAN
+
+ * REST::Client
+ * IO::Uncompress::Gunzip
+ * JSON
+ * Term::ReadKey
 
 - - -
 

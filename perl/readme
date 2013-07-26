@@ -1,0 +1,5 @@
+cpan App::cpanminus
+cpanm REST::Client
+cpanm IO::Uncompress::Gunzip
+cpanm JSON
+cpanm Term::ReadKey

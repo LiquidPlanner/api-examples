@@ -35,6 +35,38 @@ JSON.net DLL in the unzipped files.
 
 - - -
 
+### C++
+
+The C++ example uses the following libraries 
+
+ * Google Test
+ * JsonCpp
+ * Boost C++ Libraries
+ * restclient-cpp
+
+On Ubuntu, you can install them with:
+
+    $ sudo apt-get install libgtest-dev
+
+    # you will need to compile and install.
+    # installed files can be found in /usr/src/gtest
+    
+    $ sudo apt-get install libjsoncpp-dev
+    
+    $ sudo apt-get install libboost-all-dev
+
+    $ git submodule init
+    $ cd inc/restclient-cpp
+    
+    # if you're on ubuntu 12.10 or later, use AutoMake.
+
+    # Otherwise:
+
+    $ git checkout 5a5e6b05e809a9d8aac32c937ba2e8654a1aa5a7
+    $ make
+
+- - -
+
 ### Java
 
 The Java example uses the GSON library:

@@ -1,6 +1,7 @@
 ##These files show how to access the LiquidPlanner API from:
 
 * C#
+* C++
 * Java
 * Perl
 * PHP

@@ -68,6 +68,25 @@ On Ubuntu, you can install them with:
 
 - - -
 
+### Go
+
+To use the Go example:
+
+    Follow the instructions at https://golang.org/doc/code.html to setup your go workspace.
+    
+    Create a package and copy go/liquidplanner_demo.go into into it.
+
+    You will need to to fetch two packages
+
+    $ go get code.google.com/p/gopass
+    $ go get github.com/liquidplanner/liquidplanner_go 
+
+    $ go build github.com/YOUR_NAME/YOUR_PACKAGE
+    $ go install github.com/YOUR_NAME/YOUR_PACKAGE
+    $ ./bin/YOUR_PACKAGE
+
+- - -
+
 ### Java
 
 The Java example uses the GSON library:

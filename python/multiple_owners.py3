@@ -1,6 +1,7 @@
 #!usr/bin/python
 #
-# This is an example of how to use the LiquidPlanner API in Python.
+# This is an example of how to work with multiple owners in Liquidplanner 
+# using python.
 #
 
 # You need the Requests library, found at:
@@ -29,9 +30,6 @@ class LiquidPlanner:
         self.email    = email
         self.password = password
   
-    def get_workspace_id( self ):
-        return self.workspace_id
-    
     def set_workspace_id( self, workspace_id ):
         self.workspace_id = workspace_id
   
@@ -48,17 +46,6 @@ class LiquidPlanner:
           headers = { 'Content-Type': 'application/json' },
           auth    = ( self.email, self.password )
         )
-    
-    def put( self, uri, options={} ):
-        return requests.put( self.base_uri + uri, 
-          data    = options,
-          headers = { 'Content-Type': 'application/json' },
-          auth    = ( self.email, self.password )
-        )
-  
-    # returns a dictionary with information about the current user  
-    def account( self ):
-        return self.get( '/account' ).json()
 
     # returns a dictionary with server capabilities information
     def help( self ):
@@ -68,11 +55,6 @@ class LiquidPlanner:
     # returns a list of dictionaries, each a workspace in which this user is a member
     def workspaces( self ):
         return self.get( '/workspaces' ).json()
-    
-    # returns a list of dictionaries, each a project in a workspace  
-    def projects( self ):
-        return self.get( '/workspaces/' + str(self.workspace_id) +
-                         '/projects' ).json()
   
     # returns a list of dictionaries, each a task in a workspace  
     def tasks( self, query = "" ):
@@ -84,17 +66,6 @@ class LiquidPlanner:
         return self.get( '/workspaces/' + str(self.workspace_id) +
                          '/events' + query ).json()
    
-    # creates a task by POSTing data
-    def create_task( self, data ):
-        return self.post( '/workspaces/' + str(self.workspace_id) +
-                          '/tasks', json.dumps({ 'task': data }) ).json()
-    
-    # updates a task by PUTing data
-    def update_task( self, data ):
-        return self.put( '/workspaces/' + str(self.workspace_id) +
-                         '/tasks/' + str(data['id']), 
-                         json.dumps({ 'task' : data }) ).json()
-
     def members( self ):
         return self.get( '/workspaces/' + str(self.workspace_id) +
                          '/members' ).json()
@@ -135,7 +106,7 @@ class LiquidPlanner:
         return self.teams_c[ ti[ 'team_id' ] ]
 
     def owners_for( self, ti ):
-      return map( (lambda e: self.owner_for(e)), self.assignments_for( ti ) )
+      return map( self.owner_for, self.assignments_for( ti ) )
 
     def name_for( self, owner ):
       if owner[ 'type' ] == 'Member':
@@ -146,7 +117,7 @@ class LiquidPlanner:
     def inspect_ownership( self, ti ):
       id = str( ti[ 'id' ] ).rjust( 9 )
       name = ti[ 'name' ]
-      owners = list( map( (lambda e: self.name_for( e )), self.owners_for( ti ) ) )
+      owners = list( map( self.name_for, self.owners_for( ti ) ) )
 
       print( "%(id)s: %(name)s => %(owners)s" % locals() )
 
@@ -221,7 +192,7 @@ class LiquidPlanner:
 
       # Swap the Event owners
 
-      assignment_1, assignment_2 = map( (lambda x: LP.event_owners( x )), two_events )
+      assignment_1, assignment_2 = map( LP.event_owners, two_events )
 
       two_events[0] = LP.update_assignment( two_events[0][ 'id' ], assignment_2 )
       two_events[1] = LP.update_assignment( two_events[1][ 'id' ], assignment_1 )

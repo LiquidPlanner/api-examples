@@ -18,7 +18,7 @@ public class LiquidPlanner {
   private Integer workspace_id;
   private Gson gson;  
   private TypeToken returnType = new TypeToken<HashMap<String, Object>>() {};
-  
+
   public LiquidPlanner(String username, String password) {
     this.email = username;
     this.pass = password;
@@ -37,8 +37,13 @@ public class LiquidPlanner {
   public void set_workspace_id(int workspace_id) {
     this.workspace_id = workspace_id;
   }
+
+  protected HashMap json_to_object(String json) {
+    JsonParser parser = new JsonParser();
+    return (HashMap) gson.fromJson(parser.parse(json), returnType.getType());
+  }
   
-  private ArrayList<HashMap> json_to_hashmap(String json) {
+  protected ArrayList<HashMap> json_to_array(String json) {
     JsonParser parser = new JsonParser();
     JsonArray array = parser.parse(json).getAsJsonArray();
     ArrayList<HashMap> list = new ArrayList<HashMap>();
@@ -48,7 +53,7 @@ public class LiquidPlanner {
     return list;
   }
    
-  private ArrayList<HashMap> get(String url) {
+  protected HashMap getObject( String url ) {
     try{
      HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
      connection.setRequestProperty("Content-Type", "application/json");
@@ -58,7 +63,27 @@ public class LiquidPlanner {
      while ( (line = br.readLine()) != null) {
       sb.append(line);
      }
-     return json_to_hashmap(sb.toString());
+     return json_to_object(sb.toString());
+    } catch (MalformedURLException e) {
+      System.out.println("Bad URL: " + base_uri + url);
+    } catch (IOException e) {
+      System.out.println(e.toString());
+      System.out.println("IO error " + base_uri + url);
+    }
+    return null;
+  }
+
+  protected ArrayList<HashMap> get(String url) {
+    try{
+     HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
+     connection.setRequestProperty("Content-Type", "application/json");
+     BufferedReader br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+     String line;
+     StringBuilder sb = new StringBuilder();
+     while ( (line = br.readLine()) != null) {
+      sb.append(line);
+     }
+     return json_to_array(sb.toString());
     } catch (MalformedURLException e) {
       System.out.println("Bad URL: " + base_uri + url);
     } catch (IOException e) {
@@ -68,7 +93,7 @@ public class LiquidPlanner {
     return null;
   }
    
-  private String post(String url, String options) {
+  protected String post(String url, String options) {
     try{
       HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
       connection.setDoOutput(true);
@@ -114,5 +139,16 @@ public class LiquidPlanner {
   //creates a task by POSTing data
   public String createTask(String task) {
     return post("/workspaces/" + this.workspace_id.toString() + "/tasks", "{\"task\": " + task + "}");
+  }
+
+
+  //gets workspace members
+  public ArrayList<HashMap> members() {
+    return get("/workspaces/" + this.workspace_id.toString() + "/members");
+  }
+
+  //gets workspace teams
+  public ArrayList<HashMap> teams() {
+    return get("/workspaces/" + this.workspace_id.toString() + "/teams");
   }
 }

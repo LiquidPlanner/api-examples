@@ -2,6 +2,7 @@
 
 * C#
 * C++
+* Go
 * Java
 * Perl
 * PHP

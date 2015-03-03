@@ -39,6 +39,7 @@ namespace LiquidPlanner
             return "User: "+this.id + "> " + this.name + "> " + this.first_name + " " + this.last_name;
         }
     }
+
     class Workspace : LpObject
     {
         public String name { get; set; }
@@ -48,12 +49,20 @@ namespace LiquidPlanner
             return "Space: " + this.id + "> " + this.name;
         }
     }
+
+    class Assignment : LpObject
+    {
+        public Int32? person_id { get; set; }
+        public Int32? team_id   { get; set; }
+    }
+
     class Item : LpObject
     {
         public String name      { get; set; }
         public String type      { get; set; }
-        public Int32  owner_id  { get; set; }
         public Int32  parent_id { get; set; }
+
+        public List<Assignment> assignments { get; set; }
 
         public override String ToString()
         {
@@ -95,6 +104,7 @@ namespace LiquidPlanner
             if (null != data) {
                 request.ContentType = "application/json";
                 String jsonPayload = JsonConvert.SerializeObject(data);
+                Console.WriteLine(jsonPayload);
                 byte[] jsonPayloadByteArray = Encoding.ASCII.GetBytes(jsonPayload.ToCharArray());
                 request.GetRequestStream().Write(jsonPayloadByteArray, 0, jsonPayloadByteArray.Length);
             }
@@ -130,6 +140,7 @@ namespace LiquidPlanner
         public t GetObject<t>(LpResponse response) {
             if (null != response.error)
                 throw response.error;
+            Console.WriteLine(response.response);
             return JsonConvert.DeserializeObject<t>(response.response);
         }
 
@@ -208,16 +219,17 @@ namespace LiquidPlanner
                 Console.WriteLine(task.ToString());
             }
 
-            //Create a new - unassigned task -in the first project of the first space.
+            // Create a new - unassigned task -in the first project of the first space.
             Item aTask = liquidplanner.CreateTask(new Item()
             {
                 name = "My new Task Name",
-                parent_id = firstSpaceProjects[0].id
+                parent_id = firstSpaceProjects[0].id,
+                assignments = new List<Assignment>()
+                {
+                    new Assignment() { person_id = 312943 }
+                }
             });
 
-            //Now assign the task to you.
-            aTask.owner_id = myAccount.id;
-            aTask = liquidplanner.UpdateTask(aTask);
         }
     }
 }

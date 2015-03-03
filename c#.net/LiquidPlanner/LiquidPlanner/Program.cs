@@ -226,7 +226,7 @@ namespace LiquidPlanner
                 parent_id = firstSpaceProjects[0].id,
                 assignments = new List<Assignment>()
                 {
-                    new Assignment() { person_id = 312943 }
+                    new Assignment() { person_id = myAccount.id }
                 }
             });
 

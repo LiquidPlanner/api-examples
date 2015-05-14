@@ -112,7 +112,7 @@ namespace LiquidPlanner
             lp_response = new LpResponse();
             try
             {
-                using (response = request.GetResponse()) 
+                using (WebResponse response = request.GetResponse()) 
                 {
                   using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
                     lp_response.response = reader.ReadToEnd();

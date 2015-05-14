@@ -89,7 +89,6 @@ namespace LiquidPlanner
         private LpResponse request(String verb, String url, Object data)
         {
             HttpWebRequest request;
-            WebResponse response;
             String      uri;
             LpResponse  lp_response;
 
@@ -113,9 +112,12 @@ namespace LiquidPlanner
             lp_response = new LpResponse();
             try
             {
-                response = request.GetResponse();
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                lp_response.response = reader.ReadToEnd();
+                using (response = request.GetResponse()) 
+                {
+                  using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+                    lp_response.response = reader.ReadToEnd();
+                  }
+                }
             }
             catch (Exception e)
             {

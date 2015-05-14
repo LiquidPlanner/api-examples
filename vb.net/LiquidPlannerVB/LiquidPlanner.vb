@@ -74,7 +74,6 @@ Module LiquidPlanner
 
         Private Function request(ByVal verb As String, ByVal url As String, ByRef data As Object) As LpResponse
             Dim theRequest As HttpWebRequest
-            Dim response As WebResponse
             Dim uri As String
             Dim lp_response As LpResponse
 
@@ -95,9 +94,11 @@ Module LiquidPlanner
 
             lp_response = New LpResponse()
             Try
-                response = theRequest.GetResponse
-                Dim reader As StreamReader = New StreamReader(response.GetResponseStream)
-                lp_response.response = reader.ReadToEnd
+                Using response = theRequest.GetResponse
+                  Using reader As StreamReader = New StreamReader(response.GetResponseStream)
+                    lp_response.response = reader.ReadToEnd
+                  End Using
+                End Using
             Catch ex As Exception
                 lp_response.anError = ex
             End Try

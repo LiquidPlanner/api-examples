@@ -54,30 +54,42 @@ public class LiquidPlanner {
   }
    
   protected HashMap getObject( String url ) {
-    try{
-     HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
-     connection.setRequestProperty("Content-Type", "application/json");
-     BufferedReader br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
-     String line;
-     StringBuilder sb = new StringBuilder();
-     while ( (line = br.readLine()) != null) {
-      sb.append(line);
-     }
-     return json_to_object(sb.toString());
+    BufferedReader br = null;
+
+    try {
+      HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
+      connection.setRequestProperty("Content-Type", "application/json");
+      br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+      String line;
+      StringBuilder sb = new StringBuilder();
+      while ( (line = br.readLine()) != null ) {
+        sb.append(line);
+      }
+      return json_to_object(sb.toString());
     } catch (MalformedURLException e) {
       System.out.println("Bad URL: " + base_uri + url);
     } catch (IOException e) {
       System.out.println(e.toString());
       System.out.println("IO error " + base_uri + url);
+    } finally { 
+      if ( br != null ) {
+        try { 
+          br.close();
+        } catch ( IOException e ) { 
+          System.err.println( e.toString() ); 
+        }
+      }
     }
     return null;
   }
 
   protected ArrayList<HashMap> get(String url) {
-    try{
+    BufferedReader br = null;
+
+    try {
      HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
      connection.setRequestProperty("Content-Type", "application/json");
-     BufferedReader br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+     br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
      String line;
      StringBuilder sb = new StringBuilder();
      while ( (line = br.readLine()) != null) {
@@ -89,22 +101,30 @@ public class LiquidPlanner {
     } catch (IOException e) {
       System.out.println(e.toString());
       System.out.println("IO error " + base_uri + url);
+    } finally { 
+        try { 
+          br.close();
+        } catch ( IOException e ) { 
+          System.err.println( e.toString() ); 
+        }
     }
     return null;
   }
    
   protected String post(String url, String options) {
-    try{
+    BufferedReader br = null;
+
+    try {
       HttpsURLConnection connection = (HttpsURLConnection) new URL(this.base_uri + url).openConnection();
       connection.setDoOutput(true);
       connection.setRequestProperty("Content-Type", "application/json");
       OutputStream out = connection.getOutputStream();
       out.write(options.getBytes());
-      BufferedReader br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+      br = new BufferedReader( new InputStreamReader(connection.getInputStream()));
       String line;
       StringBuilder sb = new StringBuilder();
       while ( (line = br.readLine()) != null) {
-       sb.append(line);
+        sb.append(line);
       }
       return sb.toString();
     } catch (MalformedURLException e) {
@@ -112,7 +132,14 @@ public class LiquidPlanner {
     } catch (IOException e) {
       System.out.println(e.toString());
       System.out.println("IO error " + base_uri + url);
+    } finally { 
+        try { 
+          br.close();
+        } catch ( IOException e ) { 
+          System.err.println( e.toString() ); 
+        }
     }
+
     return null;
   }
   

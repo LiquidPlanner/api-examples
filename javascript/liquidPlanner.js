@@ -45,6 +45,16 @@ __.createTask = function(taskObject, cb) {
   }, cb);
 };
 
+//creates a comment by POSTing data
+__.createComment = function(taskId, commentText, cb) {
+  this.post({
+    url: "workspaces/" + this.spaceId + "/tasks/" + taskId + "/comments",
+    params: {
+      comment: { comment: commentText }
+    }
+  }, cb);
+};
+
 //------------------------------------------------------------------------------
 
 __.setSpace = function(spaceOrSpaceId) {

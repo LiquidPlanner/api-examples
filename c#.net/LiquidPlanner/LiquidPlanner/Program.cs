@@ -98,14 +98,16 @@ namespace LiquidPlanner
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Method = verb;
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            request.Headers.Set("Authorization", Convert.ToBase64String(Encoding.ASCII.GetBytes(this.Username + ":" + this._password)));
+            request.Headers.Set("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(this.Username + ":" + this._password)));
             
             if (null != data) {
                 request.ContentType = "application/json";
                 String jsonPayload = JsonConvert.SerializeObject(data);
                 Console.WriteLine(jsonPayload);
                 byte[] jsonPayloadByteArray = Encoding.ASCII.GetBytes(jsonPayload.ToCharArray());
-                request.GetRequestStream().Write(jsonPayloadByteArray, 0, jsonPayloadByteArray.Length);
+                using (Stream stream = request.GetRequestStream()) {
+                  stream.Write(jsonPayloadByteArray, 0, jsonPayloadByteArray.Length);
+                }
             }
 
 
@@ -114,8 +116,10 @@ namespace LiquidPlanner
             {
                 using (WebResponse response = request.GetResponse()) 
                 {
-                  using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
-                    lp_response.response = reader.ReadToEnd();
+                  using (Stream stream = response.GetResponseStream()) {
+                    using (StreamReader reader = new StreamReader(stream)) {
+                      lp_response.response = reader.ReadToEnd();
+                    }
                   }
                 }
             }

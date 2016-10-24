@@ -25,9 +25,6 @@ class LiquidPlanner {
 
 }
 
-?>
-<?
-
   // LP config
   $email        = '';
   $password     = '';

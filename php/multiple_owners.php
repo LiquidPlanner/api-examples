@@ -1,4 +1,4 @@
-<?
+<?php
 // This is an example of how to use the LiquidPlanner API in PHP.
 class LiquidPlanner {
   private $_base_uri = "https://app.liquidplanner.com/api";

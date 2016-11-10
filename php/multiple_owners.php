@@ -1,4 +1,4 @@
-<?
+<?php
 // This is an example of how to use the LiquidPlanner API in PHP.
 class LiquidPlanner {
   private $_base_uri = "https://app.liquidplanner.com/api";
@@ -55,11 +55,11 @@ class LiquidPlanner {
   }
 
   public function update_assignment( $ti_id, $data ) {
-    return $this->post( "/workspaces/{$this->workspace_id}/treeitems" . 
+    return $this->post( "/workspaces/{$this->workspace_id}/treeitems" .
                         "/{$ti_id}/update_assignment", $data );
   }
 
-  public function workspace_members() { 
+  public function workspace_members() {
     $members = $this->members();
     $ret = array();
     foreach( $members as &$member ) {
@@ -91,7 +91,7 @@ class LiquidPlanner {
   public function name_for( $owner ) {
     if ( $owner->type == "Member" ) {
       return $owner->user_name;
-    } else { 
+    } else {
       return $owner->name;
     }
   }
@@ -108,7 +108,7 @@ class LiquidPlanner {
         $team_ids[] = $owner->id;
       }
     }
-    return array( 
+    return array(
       'person_ids' => $person_ids,
       'team_ids' => $team_ids
     );
@@ -118,7 +118,7 @@ class LiquidPlanner {
     $self = $this;
     $id = str_pad( $ti->id, 10, " ", STR_PAD_LEFT );
     $name = $ti->name;
-    $owners = join( ',', array_map( array( $this, "name_for" ), 
+    $owners = join( ',', array_map( array( $this, "name_for" ),
                          $this->owners_for( $ti ) ) );
 
     print( $id . ": " . $name . " => " . $owners . PHP_EOL );

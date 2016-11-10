@@ -1,4 +1,4 @@
-<?
+<?php
 // This is an example of how to use the LiquidPlanner API in PHP.
 class LiquidPlanner {
   private $_base_uri = "https://app.liquidplanner.com/api";
@@ -66,12 +66,12 @@ class LiquidPlanner {
     $password = trim(fgets(STDIN));
     system('stty echo');
     echo PHP_EOL;
-    
+
     $lp = new LiquidPlanner($email, $password);
-    
+
     $account = $lp->account();
     echo "You are $account->user_name ($account->id)".PHP_EOL;
-    
+
     $workspaces = $lp->workspaces();
     $count = count($workspaces);
     $plural = $count == 1 ? '' : 's';

@@ -1,4 +1,5 @@
-<?
+<?php
+// This is an example of how to use the LiquidPlanner API in PHP.
 class LiquidPlanner {
   private $_base_uri = "https://app.liquidplanner.com/api";
   private $_ch;
@@ -25,43 +26,40 @@ class LiquidPlanner {
 
 }
 
-?>
-<?
+// LP config
+$email        = '';
+$password     = '';
+$workspace_id = '';
 
-  // LP config
-  $email        = '';
-  $password     = '';
-  $workspace_id = '';
+// GeckoBoard config
+$gecko_api_key    = '';
+$gecko_widget_key = '';
 
-  // GeckoBoard config
-  $gecko_api_key    = '';
-  $gecko_widget_key = '';
+// Get most recent comments
+$lp = new LiquidPlanner($email, $password);
+$lp->workspace_id = $workspace_id;
+$comments = $lp->comment_stream();
 
-  // Get most recent comments
-  $lp = new LiquidPlanner($email, $password);
-  $lp->workspace_id = $workspace_id;
-  $comments = $lp->comment_stream();
-
-  // translates an LP comment to the format GeckoBoard expects
-  function gecko_text($lp_comment) {
-    return array(
-      "text" => $lp_comment->comment,
-      "type" => 0,
-    );
-  }
-
-  // apply translation across the comments we received
-  $gecko_data = array(
-    "api_key" => $gecko_api_key,
-    "data" => array( "item" => array_map("gecko_text", $comments) )
+// translates an LP comment to the format GeckoBoard expects
+function gecko_text($lp_comment) {
+  return array(
+    "text" => $lp_comment->comment,
+    "type" => 0,
   );
+}
 
-  $gecko_json = json_encode($gecko_data);
+// apply translation across the comments we received
+$gecko_data = array(
+  "api_key" => $gecko_api_key,
+  "data" => array( "item" => array_map("gecko_text", $comments) )
+);
 
-  $gecko_curl = curl_init();
-  curl_setopt($gecko_curl, CURLOPT_POST, true);
-  curl_setopt($gecko_curl, CURLOPT_URL, "https://push.geckoboard.com/v1/send/{$gecko_widget_key}" );
-  curl_setopt($gecko_curl, CURLOPT_POSTFIELDS, $gecko_json);
-  curl_exec($gecko_curl);
+$gecko_json = json_encode($gecko_data);
+
+$gecko_curl = curl_init();
+curl_setopt($gecko_curl, CURLOPT_POST, true);
+curl_setopt($gecko_curl, CURLOPT_URL, "https://push.geckoboard.com/v1/send/{$gecko_widget_key}" );
+curl_setopt($gecko_curl, CURLOPT_POSTFIELDS, $gecko_json);
+curl_exec($gecko_curl);
 
 ?>

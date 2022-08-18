@@ -1,4 +1,6 @@
-##These files show how to access the LiquidPlanner API from:
+# LiquidPlanner Classic API
+
+## These files show how to access the LiquidPlanner Classic API from:
 
 * C#
 * C++
